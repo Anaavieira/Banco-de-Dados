@@ -1,0 +1,275 @@
+-- Cria o banco de dados LivrariaEtec 
+
+CREATE DATABASE IF NOT EXISTS LivrariaEtec; 
+
+USE LivrariaEtec; 
+
+-- Cria a tabela livros 
+
+CREATE TABLE IF NOT EXISTS livros ( 
+
+    Isbn varchar(60) PRIMARY KEY, 
+
+    Descricao TEXT, 
+
+    Ano_obra INT, 
+
+    Autor VARCHAR(255), 
+
+    Editora VARCHAR(255) 
+
+); 
+
+-- Insere 10 exemplos de livros da literatura brasileira 
+
+INSERT INTO livros (isbn, descricao, ano_obra, autor, editora) VALUES 
+
+(‘9788577992271’, ‘Dom Casmurro’, 1899, ‘Machado de Assis’, ‘Editora Globo’), 
+
+(‘9788501088190’, ‘A Moreninha’, 1844, ‘Joaquim Manuel de Macedo’, ‘Editora Ática’), 
+
+(‘9788535921892’, ‘O Guarani’, 1857, ‘José de Alencar’, ‘Editora Penguin’), 
+
+(‘9788526010157’, ‘Memórias Póstumas de Brás Cubas’, 1881, ‘Machado de Assis’, ‘Editora Moderna’), 
+
+(‘9788535922509’, ‘Vidas Secas’, 1938, ‘Graciliano Ramos’, ‘Editora Record’), 
+
+(‘9788501112512’, ‘Capitães da Areia’, 1937, ‘Jorge Amado’, ‘Companhia das Letras’), 
+
+(‘9788520927498’, ‘Senhora’, 1875, ‘José de Alencar’, ‘Nova Fronteira’), 
+
+(‘9788535928501’, ‘O Cortiço’, 1890, ‘Aluísio Azevedo’, ‘Editora Penguin’), 
+
+(‘9788504018028’, ‘A Escrava Isaura’, 1875, ‘Bernardo Guimarães’, ‘Editora Ediouro’), 
+
+(‘9788535932874’, ‘Os Sertões’, 1902, ‘Euclides da Cunha’, ‘Penguin Classics’); 
+
+
+-- Exercício 1 
+
+Show databases; 
+
+Drop database if exists livrariaetec; 
+
+
+-- Exercício 2 
+
+Create database livraria; 
+
+Use livraria; 
+
+
+-- Exercício 3 
+
+Create table Editora( 
+
+Id int primary key not null, 
+
+Nome varchar(80) not null, 
+
+Email varchar(120) not null 
+
+); 
+
+-- Exercício 4 
+
+Create table livro( 
+
+Id int primary key not null, 
+
+Titulo varchar(80) not null, 
+
+Preco double not null 
+
+); 
+
+-- Exercício 5 
+
+Insert into Editora (id,nome,email) values  
+
+(10, “Editora Globo”, eglobo123@gmail.com), 
+
+(20, “Editora Record”, erecord456@gmail.com), 
+
+(30, “Editora Ediouro”, eediouro789@gmail.com); 
+
+-- Exercício 6 
+
+Insert into livro (id,titulo,preco) values  
+
+(01, “Dom Casmurro”, “44.50”), 
+
+(02, “A Moreninha”, “27.90”), 
+
+(03, “O Guarani”, “38.60”); 
+
+
+-- Exercício 7 
+
+Select * from Editora; 
+
+
+-- Exercício 8 
+
+Select * from livro; 
+
+-- Exercício 9 
+
+Update livro set preco=”62.90” where id=1; 
+
+-- Exercício 10 
+
+Update Editora set nome=”Editora Penguin” where id=10; 
+
+
+-- Exercício 11 
+
+Delete from livro where titulo = ‘Dom Casmurro’; 
+
+-- Exercício 12 
+
+Delete from Editora where nome = ‘Editora Globo’; 
+
+
+-- Exercício 13 
+
+Create database biblioteca; 
+
+Use biblioteca; 
+
+ 
+-- Exercício 14 
+
+Create table assuntos ( 
+
+  Id int(3) not null primary key, 
+
+  Nome varchar(30) not null 
+
+); 
+
+Create table livros ( 
+
+  Id int(6) not null primary key, 
+
+  Titulo varchar(50) not null, 
+
+  Autor varchar(50) not null, 
+
+  Datalan date, 
+
+  Copias int(3), 
+
+  idA int not null, 
+
+  foreign key (idA) references assuntos(idA)  
+
+); 
+
+Create table emprestimos ( 
+
+  Id int(8) not null primary key, 
+
+  Dataret date, 
+
+  Dataprev date, 
+
+  Datadev date, 
+
+  Multa float(6.2), 
+
+  Ida int not null, 
+
+  idL int not null, 
+
+  foreign key (ida) references alunos(ida), 
+
+  foreign key (idL) references livros(idL) 
+
+); 
+
+Create table alunos ( 
+
+  Id int(5) not null primary key, 
+
+  Nome varchar(50) not null, 
+
+  Email varchar(50) not null, 
+
+  Fone varchar(20) not null 
+
+); 
+
+-- Exercício 15 
+
+Insert into  alunos (id, nome, email, fone) 
+
+VALUES 
+
+ (1, ‘Ana Beatriz’, ‘anabeatriz08@gmail.com’, ‘(19) 99530-7221’), 
+
+  (2, ‘Miguel’, ‘miguel08@gmail.com’, ‘(19) 99931-4657’), 
+
+  (3, ‘Maria Alice’, ‘mariaalice2024@gmail.com’, ‘(19) 98971-1516’); 
+
+-- Exercício 16 
+
+Insert into  livros (id, titulo, autor, datalan, copias, idA) 
+
+Values 
+
+  (1, ‘Minha Vida de Menina’, ‘Marcílio França’, ‘2022-01-01’, 10, 1), 
+
+  (2, ‘O Alquimista’, ‘Paulo Coelho’, ‘2021-05-15’, 20, 2), 
+
+  (3, ‘Memórias Póstumas de Brás Cubas’, ‘Machado de Assis’, ‘2020-12-10’, 15, 3); 
+
+-- Exercício 17 
+
+Insert into assuntos (id, nome) 
+
+Values 
+
+  (1, ‘Literatura Brasileira’), 
+
+  (2, ‘Ficção’), 
+
+  (3, ‘Clássicos’); 
+
+-- Exercício 18 
+
+Select * from livros where id=1; 
+
+-- Exercício 29 
+
+Select * from livros where autor=’Machado de Assis’; 
+
+-- Exercício 20 
+
+Update assuntos set nome=’romance’ where id=2; 
+
+-- Exercício 21 
+
+Update alunos set fone=’(19) 99530-7212’ where id=1; 
+
+-- Exercício 22 
+
+Alter table alunos add endereco integer; 
+
+-- Exercício 23 
+
+Delete from alunos where nome=’Maria Alice’; 
+
+Select * from alunos; 
+
+-- Exercício 24 
+
+Alter table assuntos rename generos; 
+
+-- Exercício 25 
+
+Alter table livros drop column datalan; 
+
+
+
+ 
